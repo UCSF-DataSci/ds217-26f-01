@@ -1,28 +1,42 @@
 # Assignment 01: Terminal and Python Readiness
 
+## Overview
+
+Practice terminal file operations, finish two Python scripts, fix three prepared errors, and generate two output files for the checks. The files in `terminal-practice/` and `output/` are what is graded; your code is never run or read.
+
 ## Setup
 
-Fork and clone the assignment using the [Lecture 01 instructions](https://app.notion.com/p/271d9fdd1a1a805784e1fe68dc985696). Open your clone in VS Code, then **Terminal → New Terminal** (Ctrl+Shift+backtick, also Control on Mac). Use `pwd` and `ls` to confirm that you are in the folder containing this `README.md`. Use Python 3.13; the commands below use `python3`, as in Lecture 01.
+1. Fork the assignment repository on GitHub and clone your fork as in Lecture 01: Command Palette → **Git: Clone**, paste your fork's URL, pick a folder, and open the cloned folder.
+2. Open **Terminal → New Terminal** (Ctrl+Shift+backtick, also Control on Mac).
+    - Expect: `pwd` ends in the assignment folder, and `ls` lists this `README.md`.
+3. Check the Python version.
+    - Expect: `python3 --version` prints `Python 3.13` and a patch number.
+
+## Files
 
 ```text
 assignment/
-├── readiness.py               # Q1 scaffold
-├── measurement_summary.py     # Q2 scaffold
-├── debug_report.py            # Q3 scaffold: three prepared errors
-├── make_output.py             # supplied report helper
-├── capture_identity.py        # supplied identity helper
-├── check_assignment.py        # run to check your artifacts
-├── terminal-practice/         # create in Task 1.1
+├── README.md                     # these instructions
+├── CHECKS.md                     # supplied: what each check looks for
+├── readiness.py                  # scaffold: you complete it in Task 1.2
+├── measurement_summary.py        # scaffold: you complete it in Task 2.1
+├── debug_report.py               # scaffold: three prepared errors you fix in Task 3.1
+├── make_output.py                # supplied: saves the readiness report in Task 3.2; keep unchanged
+├── capture_identity.py           # supplied: saves your identity hash in Task 3.3; keep unchanged
+├── process_email.py              # supplied: used by capture_identity.py; keep unchanged
+├── check_assignment.py           # supplied: run it to check your work; keep unchanged
+├── grading.py, _value_checks.py  # supplied: the checks themselves; keep unchanged
+├── test_assignment.py, .github/  # supplied: run the checks on GitHub; keep unchanged
+├── media/                        # supplied: screenshots for the Lecture 01 walkthrough
+├── terminal-practice/            # you create in Task 1.1
 │   ├── source.txt
 │   └── path-check.txt
-└── output/                    # generated in Tasks 3.2–3.3
-    ├── readiness.txt
-    └── student_identity.txt
+└── output/
+    ├── readiness.txt             # you generate in Task 3.2
+    └── student_identity.txt      # you generate in Task 3.3
 ```
 
-If using a separate terminal app, open Terminal on macOS/Linux or Ubuntu on Windows and `cd` to your cloned assignment folder before running the commands.
-
-## Question 1: Paths and readiness
+## Task 1: Paths and readiness
 
 ### 1.1 Practice file operations
 
@@ -41,8 +55,8 @@ rm terminal-practice/remove-me.txt
 ls terminal-practice
 ```
 
-> **Checkpoint — `terminal-practice/source.txt` and `terminal-practice/path-check.txt`**
-> Both empty files should now exist. Commit them with your completed work.
+> **Checkpoint: `terminal-practice/source.txt` and `terminal-practice/path-check.txt`**
+> Both empty files should now exist, and the last `ls` lists only these two. Commit them with your completed work.
 
 ### 1.2 Complete `readiness.py`
 
@@ -60,19 +74,19 @@ Project: DataSci 217 Assignment 01
 Script: readiness.py
 ```
 
-Use the supplied variable names, not repeated or hard-coded values. Run the script:
+Print the supplied variable that belongs on each line. Run the script:
 
 ```bash
 python3 readiness.py
 ```
 
-## Question 2: Summarize supplied measurements
+## Task 2: Summarize supplied measurements
 
 ### 2.1 Calculate the summary
 
-Complete `measurement_summary.py`. Keep the supplied `measurements` list and `review_threshold_text` while developing your answer.
+Complete `measurement_summary.py`. Keep the supplied `measurements` list and `review_threshold_text` while developing your answer. `measurements` is a list, as in Lecture 01: `len()` counts its items, and a `for` loop visits each one in order.
 
-Your script must:
+Build the script in these steps:
 
 1. convert `review_threshold_text` to an integer named `review_threshold`;
 2. start `total` and `review_count` at zero;
@@ -107,13 +121,13 @@ python3 measurement_summary.py
 
 Try another list or threshold to test your calculations, then restore `[18, 21, 24, 19]` and `"20"` before generating the report.
 
-Here, the list holds values for your loop. Lecture 02 covers lists, indexing, and slicing in more detail; Lecture 03 introduces NumPy arrays.
-
-## Question 3: Read, fix, rerun, and make the output file
+## Task 3: Read, fix, rerun, and make the output file
 
 ### 3.1 Correct `debug_report.py`
 
-`debug_report.py` contains exactly three prepared errors. Run it, read the final traceback line and referenced source line, make one small correction, save, and rerun. Repeat until it exits successfully.
+`debug_report.py` contains exactly three prepared errors. Run it with `python3 debug_report.py`, read the last line of the error message and the source line it points to, make one small correction, save, and rerun. Repeat until it exits successfully.
+
+The first error is an `IndentationError`. Python finds it before running anything, so it has no `Traceback (most recent call last)` header and nothing prints. The other two appear only when Python reaches the bad line, after the lines above it have printed.
 
 The corrected script prints:
 
@@ -133,7 +147,7 @@ After all three student scripts run cleanly, use the supplied wrapper:
 python3 make_output.py
 ```
 
-> **Checkpoint — `output/readiness.txt`**
+> **Checkpoint: `output/readiness.txt`**
 > The helper runs the three scripts and saves their combined output: the 3 lines from Task 1.2, 8 from Task 2.2, and 3 from Task 3.1, in that order. Open the file and check all 14 lines.
 
 ### 3.3 Generate your identity hash
@@ -146,37 +160,26 @@ python3 capture_identity.py
 
 The helper trims whitespace, lowercases the address, requires `@ucsf.edu`, and hashes the username after removing punctuation. It saves only the hash; keep your email address out of files and commits.
 
-> **Checkpoint — `output/student_identity.txt`**
-> The file contains one 64-character SHA-256 hash. The checker must match it to the course roster. If it does not, rerun the helper with your roster email or contact the course team.
+> **Checkpoint: `output/student_identity.txt`**
+> The file contains one 64-character SHA-256 hash. The checks match it to the course roster. If they report no match, rerun the helper with your roster email or contact the course team.
 
-## Check Your Work
+## Check your work
 
-Run the checker from the assignment directory:
+1. Run the checker from the assignment folder. It uses the latest checks from the course repository, the same checks GitHub runs.
 
-```bash
-python3 check_assignment.py
-```
+    ```bash
+    python3 check_assignment.py
+    ```
 
-It reports a result for each artifact group. A complete submission ends with:
+    - Expect: a `Checks:` line naming which copy ran, one `PASS` or `FIX` line per check, then `Score: 100/100` and `All checks passed.`
+2. Fix what `Left to fix` names, rerun `python3 make_output.py` if a report line changed, and check again.
+3. Commit the three scripts, `terminal-practice/`, and `output/` (Source Control: stage with **+**, commit, **Sync Changes**). Your fork is the submission; no pull request is needed. GitHub Actions runs the checks on every push; in a new fork, enable Actions once if prompted.
+    - Expect: the files appear on GitHub, and the Actions run, which is the one that counts, shows the same score.
+    - If the commit or push stops and asks who you are, set your Git identity as in Lecture 01, then commit again:
 
-```text
-Score: 100/100
-All checks passed.
-```
+    ```bash
+    git config user.name "Your Name"
+    git config user.email "YOUR GITHUB NOREPLY EMAIL"
+    ```
 
-If the report check fails, inspect your scripts, rerun `python3 make_output.py`, and check again.
-
-GitHub Actions runs the same checks automatically on every push. In a new fork, open **Actions** and enable workflows once if GitHub prompts you. Open the latest run to see which artifacts need attention.
-
-### Completion Contract
-
-| Points | Artifacts | What is checked |
-| --- | --- | --- |
-| 20 | `terminal-practice/source.txt`, `terminal-practice/path-check.txt` | Both exist as regular files in a regular directory; contents are not checked. |
-| 80 | `output/readiness.txt`, `output/student_identity.txt` | Both are regular UTF-8 files in a regular `output` directory. The report matches all 14 expected lines, including spacing and a final newline. The identity file contains one roster hash; surrounding whitespace and hex-letter case are ignored. Both artifacts must pass for these points. |
-
-Extra files are ignored. The checker reads saved artifacts, not your source code or how you produced the results.
-
-## Submit
-
-Commit your three completed scripts and the four checkpoint files to **your fork**. Follow the [Lecture 01 submission walkthrough](https://app.notion.com/p/271d9fdd1a1a805784e1fe68dc985696) for VS Code commit/sync or GitHub web upload. On GitHub, open both files under `output/` and confirm their contents. Your fork is the submission; no pull request is needed.
+What each check looks for: [CHECKS.md](CHECKS.md)
